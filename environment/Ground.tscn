@@ -22,6 +22,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=3]
 resource_name = "scroll"
+length = 0.75
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:position")
@@ -30,7 +31,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
+"times": PoolRealArray( 0, 0.748249 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 378, 44 ), Vector2( 216, 44 ) ]

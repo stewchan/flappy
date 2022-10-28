@@ -26,9 +26,6 @@ position = Vector2( 800, 0 )
 [node name="Ground" parent="." instance=ExtResource( 3 )]
 position = Vector2( 0, 732 )
 
-[node name="Sprite" parent="Ground" index="0"]
-position = Vector2( 378, 44 )
-
 [node name="CollisionShape2D" parent="Ground" index="1"]
 position = Vector2( 250, 37.5 )
 
