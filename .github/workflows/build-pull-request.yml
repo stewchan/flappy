@@ -1,0 +1,52 @@
+# This workflow builds the game every time a PR is opened.
+# It will fail the build if it fails to compile
+# And also triggers a separate workflow to deploy a preview copy of the build
+# (which needs to be a separate run for security reasons.
+# see https://securitylab.github.com/research/github-actions-preventing-pwn-requests/ for context)
+
+name: Build PR
+
+on:
+  pull_request:
+    paths-ignore: # do not build for game-irrelvant changes
+      - '.**'
+      - 'LICENSE'
+      - 'ACKNOWLEDGEMENTS'
+      - '**.md'
+
+jobs:
+  build_game:
+    if: ${{ github.event.action != 'synchronize' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout latest code
+        uses: actions/checkout@v3
+      - name: export with Godot Engine
+        uses: firebelley/godot-export@v3.0.0
+        with:
+          create_release: false
+          godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/3.5.1/Godot_v3.5.1-stable_linux_headless.64.zip
+          godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/3.5.1/Godot_v3.5.1-stable_export_templates.tpz
+          relative_export_path: ./
+          relative_project_path: ./
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # The next workflow needs access to the PR number to comment on it
+      # Putting it into HTML5 path allows for upload of a single artifact instead of 2
+      - name: Save PR metadata
+        env:
+          PR_NUMBER: ${{ github.event.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_SENDER: ${{ github.event.sender.login }}
+          PR_ACTION: ${{ github.event.action }}
+        run: |
+          echo $PR_NUMBER > ./HTML5/pr_number
+          echo $PR_TITLE > ./HTML5/pr_title
+          echo $PR_SENDER > ./HTML5/pr_sender
+          echo $PR_ACTION > ./HTML5/pr_action
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: pr
+          path: HTML5
