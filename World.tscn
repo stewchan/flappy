@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://characters/player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/textures/background.png" type="Texture" id=2]
+[ext_resource path="res://environment/Ground.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ui/HUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://environment/ObstacleSpawner.tscn" type="PackedScene" id=5]
+[ext_resource path="res://World.gd" type="Script" id=6]
+[ext_resource path="res://ui/MenuLayer.tscn" type="PackedScene" id=7]
+
+[node name="World" type="Node2D"]
+script = ExtResource( 6 )
+
+[node name="HUD" parent="." instance=ExtResource( 4 )]
+
+[node name="MenuLayer" parent="." instance=ExtResource( 7 )]
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 240, 428 )
+scale = Vector2( 1, 1.00234 )
+texture = ExtResource( 2 )
+
+[node name="ObstacleSpawner" parent="." instance=ExtResource( 5 )]
+position = Vector2( 800, 0 )
+
+[node name="Ground" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, 732 )
+
+[node name="Sprite" parent="Ground" index="0"]
+position = Vector2( 378, 44 )
+
+[node name="CollisionShape2D" parent="Ground" index="1"]
+position = Vector2( 250, 37.5 )
+
+[node name="CollisionShape2D2" parent="Ground/DeathZone" index="0"]
+position = Vector2( 250, 47 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 115, 427 )
+
+[connection signal="start_game" from="MenuLayer" to="." method="_on_MenuLayer_start_game"]
+[connection signal="body_entered" from="Ground/DeathZone" to="." method="_on_DeathZone_body_entered"]
+[connection signal="died" from="Player" to="." method="_on_Player_died"]
+
+[editable path="Ground"]
