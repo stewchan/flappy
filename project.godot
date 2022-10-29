@@ -24,6 +24,10 @@ config/name="flappy"
 run/main_scene="res://World.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+SilentWolf="*res://addons/silent_wolf/SilentWolf.gd"
+
 [display]
 
 window/size/width=480
