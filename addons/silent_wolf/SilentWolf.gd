@@ -10,7 +10,7 @@ onready var Players = Node.new()
 onready var Multiplayer = Node.new()
 
 #
-# SILENTWOLF CONFIG: THE CONFIG VARIABLES BELOW WILL BE OVERRIDED THE 
+# SILENTWOLF CONFIG: THE CONFIG VARIABLES BELOW WILL BE OVERRIDED THE
 # NEXT TIME YOU UPDATE YOUR PLUGIN!
 #
 # As a best practice, use SilentWolf.configure from your game's
@@ -25,9 +25,7 @@ var config = {
 	"log_level": 0
 }
 
-var scores_config = {
-	"open_scene_on_close": "res://scenes/Splash.tscn"
-}
+var scores_config = {"open_scene_on_close": "res://scenes/Splash.tscn"}
 
 var auth_config = {
 	"redirect_to_scene": "res://scenes/Splash.tscn",
@@ -45,8 +43,10 @@ var scores_script = load("res://addons/silent_wolf/Scores/Scores.gd")
 var players_script = load("res://addons/silent_wolf/Players/Players.gd")
 var multiplayer_script = load("res://addons/silent_wolf/Multiplayer/Multiplayer.gd")
 
+
 func _init():
 	print("SW Init timestamp: " + str(OS.get_time()))
+
 
 func _ready():
 	# The following line would keep SilentWolf working even if the game tree is paused.
@@ -62,17 +62,22 @@ func _ready():
 	add_child(Multiplayer)
 	print("SW ready end timestamp: " + str(OS.get_time()))
 
+
 func configure(json_config):
 	config = json_config
+
 
 func configure_api_key(api_key):
 	config.apiKey = api_key
 
+
 func configure_game_id(game_id):
 	config.game_id = game_id
 
+
 func configure_game_version(game_version):
 	config.game_version = game_version
+
 
 ##################################################################
 # Log levels:
@@ -83,44 +88,51 @@ func configure_game_version(game_version):
 func configure_log_level(log_level):
 	config.log_level = log_level
 
+
 func configure_scores(json_scores_config):
 	scores_config = json_scores_config
 
+
 func configure_scores_open_scene_on_close(scene):
 	scores_config.open_scene_on_close = scene
-	
+
+
 func configure_auth(json_auth_config):
 	auth_config = json_auth_config
 
+
 func configure_auth_redirect_to_scene(scene):
 	auth_config.open_scene_on_close = scene
-	
+
+
 func configure_auth_session_duration(duration):
 	auth_config.session_duration = duration
 
 
 func free_request(weak_ref, object):
-	if (weak_ref.get_ref()):
+	if weak_ref.get_ref():
 		object.queue_free()
 
 
 func send_get_request(http_node, request_url):
-	var headers = ["x-api-key: " + SilentWolf.config.api_key, "x-sw-plugin-version: " + SilentWolf.version]
+	var headers = [
+		"x-api-key: " + SilentWolf.config.api_key, "x-sw-plugin-version: " + SilentWolf.version
+	]
 	if !http_node.is_inside_tree():
 		yield(get_tree().create_timer(0.01), "timeout")
 	SWLogger.debug("Method: GET")
 	SWLogger.debug("request_url: " + str(request_url))
 	SWLogger.debug("headers: " + str(headers))
-	http_node.request(request_url, headers) 
+	http_node.request(request_url, headers)
 
 
 func send_post_request(http_node, request_url, payload):
 	var headers = [
-		"Content-Type: application/json", 
-		"x-api-key: " + SilentWolf.config.api_key, 
+		"Content-Type: application/json",
+		"x-api-key: " + SilentWolf.config.api_key,
 		"x-sw-plugin-version: " + SilentWolf.version
 	]
-	# TODO: this os specific to post_new_score - should be made generic 
+	# TODO: this os specific to post_new_score - should be made generic
 	# or make a section for each type of post request with inetgrity check
 	# (e.g. also push player data)
 	if "post_new_score" in request_url:
