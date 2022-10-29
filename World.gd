@@ -7,8 +7,8 @@ onready var menu_layer = $MenuLayer
 
 const SAVE_FILE_PATH = "user://savedata.save"
 
-var score = 0 setget set_score
-var highscore = 0
+var score := 0 setget set_score
+var highscore := 0
 
 
 func _ready():
@@ -61,15 +61,18 @@ func _on_MenuLayer_start_game():
 
 
 func save_highscore():
-	var save_data = File.new()
-	save_data.open(SAVE_FILE_PATH, File.WRITE)
-	save_data.store_var(highscore)
-	save_data.close()
+	# var save_data = File.new()
+	# save_data.open(SAVE_FILE_PATH, File.WRITE)
+	# save_data.store_var(highscore)
+	# save_data.close()
+	yield(SilentWolf.Scores.persist_score("Guest", highscore), "sw_score_posted")
 
 
 func load_highscore():
-	var save_data = File.new()
-	if save_data.file_exists(SAVE_FILE_PATH):
-		save_data.open(SAVE_FILE_PATH, File.READ)
-		highscore = save_data.get_var()
-		save_data.close()
+	# var save_data = File.new()
+	# if save_data.file_exists(SAVE_FILE_PATH):
+	# 	save_data.open(SAVE_FILE_PATH, File.READ)
+	# 	highscore = save_data.get_var() as int
+	# 	save_data.close()
+	yield(SilentWolf.Scores.get_high_scores(), "sw_scores_received")
+	highscore = SilentWolf.Scores.scores[0].score as int
