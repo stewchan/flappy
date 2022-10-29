@@ -24,6 +24,11 @@ jobs:
             const path = require('path');
             const script = require(path.resolve('.github/workflows/update-credits.js'));
             await script(github, context)
+      - name: create env file
+        run: |
+          touch .env
+          echo ${{ secrets.SILENTWOLF_API_KEY }} >> .env
+          echo ${{ secrets.SILENTWOLF_GAME_ID }} >> .env
       - name: export with Godot Engine and release on GitHub
         uses: firebelley/godot-export@v3.0.0
         with:

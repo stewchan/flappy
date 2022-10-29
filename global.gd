@@ -6,7 +6,7 @@ var game_id
 
 func _ready():
 	var f = File.new()
-	f.open("res://secrets.env", File.READ)
+	f.open("res://.env", File.READ)
 	api_key = str(f.get_line())
 	game_id = str(f.get_line())
 	f.close()
