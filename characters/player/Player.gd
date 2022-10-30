@@ -17,7 +17,6 @@ var alive = true
 
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("flap") && alive:
-		gravity_scale = 5
 		if not started:
 			start()
 
@@ -32,9 +31,16 @@ func _physics_process(_delta):
 			angular_velocity = 0
 
 
+func _input(event):
+	if event is InputEventScreenTouch && alive:
+		if not started:
+			start()
+
+
 func start():
 	if started:
 		return
+	gravity_scale = 5
 	started = true
 	flap()
 
