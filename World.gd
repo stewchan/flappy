@@ -75,4 +75,3 @@ func load_highscore():
 	# 	highscore = save_data.get_var() as int
 	# 	save_data.close()
 	yield(SilentWolf.Scores.get_high_scores(), "sw_scores_received")
-	highscore = SilentWolf.Scores.scores[0].score as int
