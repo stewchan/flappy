@@ -45,6 +45,7 @@ func start():
 	flap()
 
 
+# Flap the bird
 func flap():
 	animator.play("flap")
 	wing.play()
