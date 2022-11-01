@@ -38,6 +38,7 @@ func _input(event):
 			start()
 
 
+# Start the game
 func start():
 	if started:
 		return
