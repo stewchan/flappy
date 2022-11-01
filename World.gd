@@ -16,6 +16,7 @@ func _ready():
 	load_highscore()
 
 
+# Start new game
 func new_game():
 	score = 0
 	hud.update_score(score)
