@@ -22,6 +22,7 @@ func new_game():
 	obstacle_spawner.start()
 
 
+# Increase score by 1
 func player_score():
 	self.score += 1
 
@@ -53,6 +54,7 @@ func game_over():
 	if score > highscore:
 		highscore = score
 		save_highscore()
+
 	menu_layer.init_game_over_menu(score, highscore)
 
 
