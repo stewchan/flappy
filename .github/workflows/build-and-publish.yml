@@ -17,13 +17,6 @@ jobs:
     steps:
       - name: checkout latest code
         uses: actions/checkout@v3
-      - name: update credits
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const path = require('path');
-            const script = require(path.resolve('.github/workflows/update-credits.js'));
-            await script(github, context)
       - name: create env file
         run: |
           touch ${{ github.workspace }}/.env
