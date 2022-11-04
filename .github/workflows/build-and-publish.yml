@@ -19,9 +19,9 @@ jobs:
         uses: actions/checkout@v3
       - name: create env file
         run: |
-          touch ${{ github.workspace }}/.env
-          echo ${{ secrets.SILENTWOLF_API_KEY }} >> ${{ github.workspace }}/.env
-          echo ${{ secrets.SILENTWOLF_GAME_ID }} >> ${{ github.workspace }}/.env
+          touch .env
+          echo ${{ secrets.SILENTWOLF_API_KEY }} >> .env
+          echo ${{ secrets.SILENTWOLF_GAME_ID }} >> .env
       - name: export with Godot Engine and release on GitHub
         uses: firebelley/godot-export@v4.2.0
         with:
