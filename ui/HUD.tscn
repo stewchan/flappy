@@ -8,7 +8,7 @@ script = ExtResource( 2 )
 
 [node name="ScoreLabel" type="Label" parent="."]
 anchor_right = 1.0
-margin_bottom = 108.0
+margin_bottom = 110.0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 3
 custom_constants/shadow_offset_y = 3
